@@ -1,0 +1,49 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+$container = new League\Container\Container();
+$container->delegate(
+        new League\Container\ReflectionContainer()
+);
+
+if ($argc < 4) {
+    echo "\n\e[0;31mProvide the year, day and part that you want to run the code for!\e[0m\n\n";
+    exit(1);
+}
+
+$year = $argv[1];
+$day = substr('00'.$argv[2], -2);
+switch ($argv[3]) {
+    case '1':
+    case '01':
+    case 'One':
+        $part = 'One';
+        break;
+    case '2':
+    case '02':
+    case 'Two':
+        $part = 'Two';
+        break;
+    default:
+        throw new \Exception('Invalid part name provided!');
+}
+
+$class = sprintf(
+    '\AoC\Advent%s\Dec%s\Part%s',
+    $year,
+    $day,
+    $part
+);
+
+echo sprintf(
+    "\n\e[0;32mResult for Advent %s, Day %s, Part %s:\e[0m\n%s\n\n",
+    $year,
+    $day,
+    $part,
+    $container->get($class)()
+);
+
+
+exit(0);

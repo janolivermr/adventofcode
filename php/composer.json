@@ -1,0 +1,27 @@
+{
+    "name": "janolivermr/adventofcode",
+    "description": "Advent of Code solutions",
+    "authors": [
+        {
+            "name": "Jan Stolle",
+            "email": "janstolle@me.com"
+        }
+    ],
+    "require": {
+        "league/container": "^3.3",
+        "league/csv": "^9.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "AoC\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
