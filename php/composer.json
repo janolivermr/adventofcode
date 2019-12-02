@@ -8,6 +8,7 @@
         }
     ],
     "require": {
+        "php": "^7.4",
         "league/container": "^3.3",
         "league/csv": "^9.4"
     },
