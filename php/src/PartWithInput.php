@@ -12,7 +12,11 @@ abstract class PartWithInput
     {
         $reverse_path = preg_replace('/^AoC\\\\(.+)\\\\\w+$/', '$1', static::class);
         $path = implode(DIRECTORY_SEPARATOR, explode('\\', $reverse_path));
-        $reader = Reader::createFromPath(__DIR__.DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.'input');
-        $this->records = $reader->getRecords();
+        try {
+            $reader = Reader::createFromPath(__DIR__ . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . 'input');
+            $this->records = $reader->getRecords();
+        } catch (\League\Csv\Exception $e) {
+            // Do nothing
+        }
     }
 }
