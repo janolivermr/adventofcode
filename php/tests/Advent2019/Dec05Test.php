@@ -94,9 +94,9 @@ class Dec05Test extends TestCase
 
     public function testWithInputPartTwo()
     {
-        $partOne = new PartTwo([], [5]);
-        $partOne->processAll();
+        $partTwo = new PartTwo([], [5]);
+        $partTwo->processAll();
         $this->assertTrue(true);
-        echo sprintf('Result: %s', $partOne->getOutputs()[0]);
+        echo sprintf('Result: %s', $partTwo->getOutputs()[0]);
     }
 }
