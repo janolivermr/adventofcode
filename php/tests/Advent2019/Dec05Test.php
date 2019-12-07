@@ -4,9 +4,9 @@ namespace Tests\Advent2019;
 
 use AoC\Advent2019\Dec05\PartOne;
 use AoC\Advent2019\Dec05\PartTwo;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCaseWithInput;
 
-class Dec05Test extends TestCase
+class Dec05Test extends TestCaseWithInput
 {
     /**
      * @dataProvider expectedStateProvider
@@ -84,19 +84,21 @@ class Dec05Test extends TestCase
         ];
     }
 
-    public function testWithInputPartOne()
+    public function runPartOne()
     {
-        $partOne = new PartOne([], [1]);
+        $partOne = new PartOne(iterator_to_array($this->getInput())[0], [1]);
         $partOne->processAll();
         $this->assertTrue(true);
-        echo sprintf('Result: %s', $partOne->getOutputs()[0]);
+        $outputs = $partOne->getOutputs();
+        return end($outputs);
     }
 
-    public function testWithInputPartTwo()
+    public function runPartTwo()
     {
-        $partTwo = new PartTwo([], [5]);
+        $partTwo = new PartTwo(iterator_to_array($this->getInput())[0], [5]);
         $partTwo->processAll();
         $this->assertTrue(true);
-        echo sprintf('Result: %s', $partTwo->getOutputs()[0]);
+        $outputs = $partTwo->getOutputs();
+        return end($outputs);
     }
 }

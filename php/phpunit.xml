@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="ExampleValues">
+        <testsuite name="All">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
@@ -18,4 +18,7 @@
             <directory suffix=".php">./app</directory>
         </whitelist>
     </filter> -->
+    <php>
+        <env name="ECHO_LVL" value="2"/>
+    </php>
 </phpunit>

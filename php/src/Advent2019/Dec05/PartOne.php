@@ -2,33 +2,25 @@
 
 namespace AoC\Advent2019\Dec05;
 
-use AoC\PartWithInput;
-
-class PartOne extends PartWithInput
+class PartOne
 {
-    /** @var array Instruction Data */
-    protected $state;
+    /** @var array Memory State */
+    protected array $state;
 
     /** @var int Instruction Pointer */
-    protected $ip;
+    protected int $ip;
 
     /** @var array */
-    protected $inputs;
+    protected array $inputs;
 
-    /** @var array  */
-    protected $outputs;
+    /** @var array */
+    protected array $outputs = [];
 
-    public function __construct(array $inputState = [], array $inputs = [], int $ip = 0)
+    public function __construct(array $inputState, array $inputs = [], int $ip = 0)
     {
-        parent::__construct();
-
-        $this->records->rewind();
-        $data = $this->records->current();
-
-        $this->state = count($inputState) === 0 ? $data : $inputState;
+        $this->state = $inputState;
         $this->ip = $ip;
         $this->inputs = $inputs;
-        $this->outputs = [];
     }
 
     public function processAll()
@@ -36,7 +28,7 @@ class PartOne extends PartWithInput
         while (($result = $this->processInstruction()) !== false) {
             if ($result !== true) {
                 $this->outputs[] = $result;
-                echo sprintf("Output: %s\n", $result);
+                echo_dbg(sprintf("Output: %s\n", $result), 4);
             }
         }
     }
@@ -46,8 +38,8 @@ class PartOne extends PartWithInput
         list($pA, $pB) = $this->multiParams(2, $params);
         list($a, $b, $out) = $this->multi(3);
         $this->state[$out] = $this->getValue($a, $pA) + $this->getValue($b, $pB);
-        echo sprintf("  ADD %s%s %s%s -> @%s\n", $pA, $a, $pB, $b, $out);
-        echo sprintf("= ADD #%s #%s -> @%s\n", $this->getValue($a, $pA), $this->getValue($a, $pA), $out);
+        echo_dbg(sprintf("  ADD %s%s %s%s -> @%s\n", $pA, $a, $pB, $b, $out));
+        echo_dbg(sprintf("= ADD #%s #%s -> @%s\n", $this->getValue($a, $pA), $this->getValue($a, $pA), $out));
         return true;
     }
 
@@ -56,8 +48,8 @@ class PartOne extends PartWithInput
         list($pA, $pB) = $this->multiParams(2, $params);
         list($a, $b, $out) = $this->multi(3);
         $this->state[$out] = $this->getValue($a, $pA) * $this->getValue($b, $pB);
-        echo sprintf("  MUL %s%s %s%s -> @%s\n", $pA, $a, $pB, $b, $out);
-        echo sprintf("= MUL #%s #%s -> @%s\n", $this->getValue($a, $pA), $this->getValue($a, $pA), $out);
+        echo_dbg(sprintf("  MUL %s%s %s%s -> @%s\n", $pA, $a, $pB, $b, $out));
+        echo_dbg(sprintf("= MUL #%s #%s -> @%s\n", $this->getValue($a, $pA), $this->getValue($a, $pA), $out));
         return true;
     }
 
@@ -65,8 +57,8 @@ class PartOne extends PartWithInput
     {
         $a = $this->next();
         $in = array_shift($this->inputs);
-        echo sprintf("  INP #%s -> @%s\n", $in, $a);
-        echo sprintf("= INP #%s -> @%s\n", $in, $a);
+        echo_dbg(sprintf("  INP #%s -> @%s\n", $in, $a));
+        echo_dbg(sprintf("= INP #%s -> @%s\n", $in, $a));
         $this->state[$a] = $in;
         return true;
     }
@@ -75,13 +67,14 @@ class PartOne extends PartWithInput
     {
         $a = $this->next();
         list($pA) = $this->multiParams(1, $params);
-        echo sprintf("  OUT %s%s\n", $pA, $a);
-        echo sprintf("  OUT #%s\n", $this->getValue($a, $pA));
+        echo_dbg(sprintf("  OUT %s%s\n", $pA, $a));
+        echo_dbg(sprintf("  OUT #%s\n", $this->getValue($a, $pA)));
         return $this->getValue($a, $pA);
     }
 
     protected function process99($params)
     {
+        echo_dbg("  HLT");
         return false;
     }
 
@@ -130,17 +123,8 @@ class PartOne extends PartWithInput
             case '#':
                 return intval($addr);
             default:
-                throw new \Exception('Unkown Mode');
+                throw new \Exception('Unknown Mode');
         }
-    }
-
-    public function runWithInput()
-    {
-        $this->records->rewind();
-        $data = $this->records->current();
-        $partOne = new static(explode(',', $data), [1]);
-        $partOne->processAll();
-        return $partOne->getOutputs()[0];
     }
 
     public function getState(): array

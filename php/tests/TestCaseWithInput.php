@@ -51,15 +51,10 @@ abstract class TestCaseWithInput extends TestCase
 
     abstract public function runPartTwo();
 
-    public function testPartOne()
+    public function testWithInput()
     {
         $this->assertTrue(true);
-        echo sprintf("Result for %s, %s\n%s", $this->year, $this->day, $this->runPartOne());
-    }
-
-    public function testPartTwo()
-    {
-        $this->assertTrue(true);
-        echo sprintf("Result for %s, %s\n%s", $this->year, $this->day, $this->runPartTwo());
+        echo sprintf("\nResult for %s, %s, Part One:\n\t%s\n", $this->year, $this->day, $this->runPartOne());
+        echo sprintf("\nResult for %s, %s, Part Two:\n\t%s\n", $this->year, $this->day, $this->runPartTwo());
     }
 }
