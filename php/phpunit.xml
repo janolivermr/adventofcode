@@ -19,6 +19,6 @@
         </whitelist>
     </filter> -->
     <php>
-        <env name="ECHO_LVL" value="2"/>
+        <env name="ECHO_LVL" value="1"/>
     </php>
 </phpunit>

@@ -27,7 +27,6 @@ class PartOne
     {
         while (($result = $this->processInstruction()) !== false) {
             if ($result !== true) {
-                $this->outputs[] = $result;
                 echo_dbg(sprintf("Output: %s\n", $result), 4);
             }
         }
@@ -69,12 +68,14 @@ class PartOne
         list($pA) = $this->multiParams(1, $params);
         echo_dbg(sprintf("  OUT %s%s\n", $pA, $a));
         echo_dbg(sprintf("  OUT #%s\n", $this->getValue($a, $pA)));
-        return $this->getValue($a, $pA);
+        $output = $this->getValue($a, $pA);
+        $this->outputs[] = $output;
+        return $output;
     }
 
     protected function process99($params)
     {
-        echo_dbg("  HLT");
+        echo_dbg("  HLT\n");
         return false;
     }
 
