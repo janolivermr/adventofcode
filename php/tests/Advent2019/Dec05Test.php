@@ -2,8 +2,7 @@
 
 namespace Tests\Advent2019;
 
-use AoC\Advent2019\Dec05\PartOne;
-use AoC\Advent2019\Dec05\PartTwo;
+use AoC\Advent2019\Dec05;
 use Tests\TestCaseWithInput;
 
 class Dec05Test extends TestCaseWithInput
@@ -13,12 +12,9 @@ class Dec05Test extends TestCaseWithInput
      */
     public function testExpectedState($startState, $expectedState)
     {
-        $partOne = new PartOne(explode(',', $startState));
-        $partOne->processAll();
-        $this->assertEquals($expectedState, implode(',', $partOne->getState()));
-        $partTwo = new PartTwo(explode(',', $startState));
-        $partTwo->processAll();
-        $this->assertEquals($expectedState, implode(',', $partTwo->getState()));
+        $dec05 = new Dec05(explode(',', $startState));
+        $dec05->processAll();
+        $this->assertEquals($expectedState, implode(',', $dec05->getState()));
     }
 
     public function expectedStateProvider()
@@ -34,15 +30,13 @@ class Dec05Test extends TestCaseWithInput
 
     /**
      * @dataProvider expectedOutputProvider
+     * @dataProvider partTwoExamplesProvider
      */
     public function testExpectedOutput($startState, $input, $expectedOutput)
     {
-        $partOne = new PartOne(explode(',', $startState), [$input]);
-        $partOne->processAll();
-        $this->assertEquals($expectedOutput, $partOne->getOutputs()[0]);
-        $partTwo = new PartTwo(explode(',', $startState), [$input]);
-        $partTwo->processAll();
-        $this->assertEquals($expectedOutput, $partTwo->getOutputs()[0]);
+        $dec05 = new Dec05(explode(',', $startState), [$input]);
+        $dec05->processAll();
+        $this->assertEquals($expectedOutput, $dec05->getOutputs()[0]);
     }
 
     public function expectedOutputProvider()
@@ -50,16 +44,6 @@ class Dec05Test extends TestCaseWithInput
         return [
             ['3,0,4,0,99', 77, 77],
         ];
-    }
-
-    /**
-     * @dataProvider partTwoExamplesProvider
-     */
-    public function testPartTwoOutput($startState, $input, $expectedOutput)
-    {
-        $partOne = new PartTwo(explode(',', $startState), [$input]);
-        $partOne->processAll();
-        $this->assertEquals($expectedOutput, $partOne->getOutputs()[0]);
     }
 
     public function partTwoExamplesProvider()
@@ -86,7 +70,7 @@ class Dec05Test extends TestCaseWithInput
 
     public function runPartOne()
     {
-        $partOne = new PartOne(iterator_to_array($this->getInput())[0], [1]);
+        $partOne = new Dec05(iterator_to_array($this->getInput())[0], [1]);
         $partOne->processAll();
         $this->assertTrue(true);
         $outputs = $partOne->getOutputs();
@@ -95,7 +79,7 @@ class Dec05Test extends TestCaseWithInput
 
     public function runPartTwo()
     {
-        $partTwo = new PartTwo(iterator_to_array($this->getInput())[0], [5]);
+        $partTwo = new Dec05(iterator_to_array($this->getInput())[0], [5]);
         $partTwo->processAll();
         $this->assertTrue(true);
         $outputs = $partTwo->getOutputs();

@@ -2,8 +2,7 @@
 
 namespace Tests\Advent2019;
 
-use AoC\Advent2019\Dec01\PartOne;
-use AoC\Advent2019\Dec01\PartTwo;
+use AoC\Advent2019\Dec01;
 use Tests\TestCaseWithInput;
 
 class Dec01Test extends TestCaseWithInput
@@ -13,7 +12,7 @@ class Dec01Test extends TestCaseWithInput
      */
     public function testPartOneExample($mass, $fuel)
     {
-        $this->assertEquals($fuel, PartOne::calculateFuel($mass));
+        $this->assertEquals($fuel, Dec01::calculateFuel($mass));
     }
 
     /**
@@ -21,7 +20,7 @@ class Dec01Test extends TestCaseWithInput
      */
     public function testPartTwoExample($mass, $fuel)
     {
-        $this->assertEquals($fuel, PartTwo::calculateFuelRecursive($mass));
+        $this->assertEquals($fuel, Dec01::calculateFuelRecursive($mass));
     }
 
     public function partOneExamplesProvider()
@@ -47,7 +46,7 @@ class Dec01Test extends TestCaseWithInput
     {
         $fuelRequired = 0;
         foreach ($this->getInput() as $record) {
-            $fuelRequired += PartOne::calculateFuel((int)$record[0]);
+            $fuelRequired += Dec01::calculateFuel((int)$record[0]);
         }
         return $fuelRequired;
     }
@@ -56,7 +55,7 @@ class Dec01Test extends TestCaseWithInput
     {
         $fuelRequired = 0;
         foreach ($this->getInput() as $record) {
-            $fuelRequired += PartTwo::calculateFuelRecursive((int)$record[0]);
+            $fuelRequired += Dec01::calculateFuelRecursive((int)$record[0]);
         }
         return $fuelRequired;
     }

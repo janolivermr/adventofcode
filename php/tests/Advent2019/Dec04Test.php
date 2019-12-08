@@ -2,18 +2,17 @@
 
 namespace Tests\Advent2019;
 
-use AoC\Advent2019\Dec04\PartOne;
-use AoC\Advent2019\Dec04\PartTwo;
-use PHPUnit\Framework\TestCase;
+use AoC\Advent2019\Dec04;
+use Tests\TestCaseWithInput;
 
-class Dec04Test extends TestCase
+class Dec04Test extends TestCaseWithInput
 {
     /**
      * @dataProvider partOneExamplesProvider
      */
     public function testPartOneExample($password, $valid)
     {
-        $this->assertEquals($valid, PartOne::isValidPassword($password));
+        $this->assertEquals($valid, Dec04::isValidPassword($password));
     }
 
     /**
@@ -21,7 +20,7 @@ class Dec04Test extends TestCase
      */
     public function testPartTwoExample($password, $valid)
     {
-        $this->assertEquals($valid, PartTwo::isValidPassword($password));
+        $this->assertEquals($valid, Dec04::isValidPassword($password, true));
     }
 
     public function partOneExamplesProvider()
@@ -44,5 +43,17 @@ class Dec04Test extends TestCase
             ['124444', false],
             ['112444', true],
         ];
+    }
+
+    public function runPartOne()
+    {
+        $dec04 = new Dec04(iterator_to_array($this->getInput())[0][0]);
+        return $dec04->getValidPasswords();
+    }
+
+    public function runPartTwo()
+    {
+        $dec04 = new Dec04(iterator_to_array($this->getInput())[0][0]);
+        return $dec04->getValidPasswords(true);
     }
 }

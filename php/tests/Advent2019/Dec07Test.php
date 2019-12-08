@@ -2,8 +2,7 @@
 
 namespace Tests\Advent2019;
 
-use AoC\Advent2019\Dec07\PartOne;
-use AoC\Advent2019\Dec07\PartTwo;
+use AoC\Advent2019\Dec07;
 use Tests\TestCaseWithInput;
 
 class Dec07Test extends TestCaseWithInput
@@ -13,7 +12,7 @@ class Dec07Test extends TestCaseWithInput
      */
     public function testPartOneExamples($inputState, $expectedMaxThruster)
     {
-        $this->assertEquals($expectedMaxThruster, PartOne::calculateMaxAmp(explode(',', $inputState)));
+        $this->assertEquals($expectedMaxThruster, Dec07::calculateMaxAmp(explode(',', $inputState)));
     }
 
     public function testCombinationCalculation()
@@ -21,7 +20,7 @@ class Dec07Test extends TestCaseWithInput
         $this->assertEquals([
             [1, 2],
             [2, 1]
-        ], PartTwo::calculatePhaseInputs([1, 2]));
+        ], Dec07::calculatePhaseInputs([1, 2]));
         $this->assertEquals([
             [1, 2, 3],
             [1, 3, 2],
@@ -29,7 +28,7 @@ class Dec07Test extends TestCaseWithInput
             [2, 3, 1],
             [3, 1, 2],
             [3, 2, 1],
-        ], PartTwo::calculatePhaseInputs([1, 2, 3]));
+        ], Dec07::calculatePhaseInputs([1, 2, 3]));
     }
 
     /**
@@ -37,8 +36,8 @@ class Dec07Test extends TestCaseWithInput
      */
     public function testPartTwoExamples($inputState, $expectedMaxThruster)
     {
-        $combinations = PartTwo::calculatePhaseInputs([5, 6, 7, 8, 9]);
-        $this->assertEquals($expectedMaxThruster, PartTwo::calculateMaxAmpWithFeedback(
+        $combinations = Dec07::calculatePhaseInputs([5, 6, 7, 8, 9]);
+        $this->assertEquals($expectedMaxThruster, Dec07::calculateMaxAmpWithFeedback(
             explode(',', $inputState),
             $combinations
         ));
@@ -46,14 +45,14 @@ class Dec07Test extends TestCaseWithInput
     public function runPartOne()
     {
         $inputState = iterator_to_array($this->getInput())[0];
-        return PartOne::calculateMaxAmp($inputState);
+        return Dec07::calculateMaxAmp($inputState);
     }
 
     public function runPartTwo()
     {
         $inputState = iterator_to_array($this->getInput())[0];
-        $combinations = PartTwo::calculatePhaseInputs([5, 6, 7, 8, 9]);
-        return PartTwo::calculateMaxAmpWithFeedback($inputState, $combinations);
+        $combinations = Dec07::calculatePhaseInputs([5, 6, 7, 8, 9]);
+        return Dec07::calculateMaxAmpWithFeedback($inputState, $combinations);
     }
 
     public function partOneExamplesProvider()

@@ -1,12 +1,17 @@
 <?php
 
-namespace AoC\Advent2019\Dec06;
+namespace AoC\Advent2019;
 
-class PartTwo extends PartOne
+class Dec06
 {
-    public function getOrbitCount($planet)
+    protected $planets;
+
+    public function __construct(array $map)
     {
-        return count($this->getParentOrbits($planet));
+        foreach ($map as $record) {
+            list($inner, $outer) = explode(')', $record);
+            $this->planets[$outer] = $inner;
+        }
     }
 
     public function getParentOrbits($planet)
@@ -18,11 +23,25 @@ class PartTwo extends PartOne
         return $parents;
     }
 
+    public function getComDistance($planet)
+    {
+        return count($this->getParentOrbits($planet));
+    }
+
     public function getOrbitTransfers($origin, $destination)
     {
         $originSteps = $this->getParentOrbits($origin);
         $destinationSteps = $this->getParentOrbits($destination);
         $sharedSteps = array_intersect($originSteps, $destinationSteps);
         return count($originSteps) + count($destinationSteps) - 2 * count($sharedSteps);
+    }
+
+    public function getOrbitTotal()
+    {
+        $total = 0;
+        foreach ($this->planets as $planet => $parent) {
+            $total += $this->getComDistance($planet);
+        }
+        return $total;
     }
 }

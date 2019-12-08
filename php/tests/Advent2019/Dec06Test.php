@@ -2,19 +2,18 @@
 
 namespace Tests\Advent2019;
 
-use AoC\Advent2019\Dec06\PartOne;
-use AoC\Advent2019\Dec06\PartTwo;
-use PHPUnit\Framework\TestCase;
+use AoC\Advent2019\Dec06;
+use Tests\TestCaseWithInput;
 
-class Dec06Test extends TestCase
+class Dec06Test extends TestCaseWithInput
 {
     /**
      * @dataProvider partOneExamplesProvider
      */
     public function testPartOne($map, $expectedOutput)
     {
-        $partOne = new PartOne(array_map(function ($el) { return [$el]; }, $map));
-        $this->assertEquals($expectedOutput, $partOne->getOrbitTotal());
+        $dec06 = new Dec06($map);
+        $this->assertEquals($expectedOutput, $dec06->getOrbitTotal());
     }
 
     public function partOneExamplesProvider()
@@ -41,8 +40,8 @@ class Dec06Test extends TestCase
      */
     public function testPartTwo($map, $expectedOutput)
     {
-        $partTwo = new PartTwo(array_map(function ($el) { return [$el]; }, $map));
-        $this->assertEquals($expectedOutput, $partTwo->getOrbitTransfers('YOU', 'SAN'));
+        $dec06 = new Dec06($map);
+        $this->assertEquals($expectedOutput, $dec06->getOrbitTransfers('YOU', 'SAN'));
     }
 
     public function partTwoExamplesProvider()
@@ -66,17 +65,21 @@ class Dec06Test extends TestCase
         ];
     }
 
-    public function testWithInputPartOne()
+    public function runPartOne()
     {
-        $partOne = new PartOne();
-        $this->assertTrue(true);
-        echo sprintf('Result: %s', $partOne->getOrbitTotal());
+        $map = array_map(function ($record) {
+            return $record[0];
+        }, iterator_to_array($this->getInput()));
+        $dec06 = new Dec06($map);
+        return $dec06->getOrbitTotal();
     }
 
-    public function testWithInputPartTwo()
+    public function runPartTwo()
     {
-        $partTwo = new PartTwo();
-        $this->assertTrue(true);
-        echo sprintf('Result: %s', $partTwo->getOrbitTransfers('YOU', 'SAN'));
+        $map = array_map(function ($record) {
+            return $record[0];
+        }, iterator_to_array($this->getInput()));
+        $dec06 = new Dec06($map);
+        return $dec06->getOrbitTransfers('YOU', 'SAN');
     }
 }
