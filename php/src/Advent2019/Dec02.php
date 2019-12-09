@@ -24,9 +24,9 @@ class Dec02
 
     protected function process01()
     {
-        $a = $this->readNext();
-        $b = $this->readNext();
-        $outAddr = $this->next();
+        $a = $this->nextValue();
+        $b = $this->nextValue();
+        $outAddr = $this->nextAddress();
         $this->write($outAddr, $a + $b);
         echo_dbg(sprintf("  ADD #%s #%s -> @%s\n", $a, $b, $outAddr));
         return true;
@@ -34,9 +34,9 @@ class Dec02
 
     protected function process02()
     {
-        $a = $this->readNext();
-        $b = $this->readNext();
-        $outAddr = $this->next();
+        $a = $this->nextValue();
+        $b = $this->nextValue();
+        $outAddr = $this->nextAddress();
         $this->write($outAddr, $a * $b);
         echo_dbg(sprintf("  MUL #%s #%s -> @%s\n", $a, $b, $outAddr));
         return true;
@@ -55,14 +55,24 @@ class Dec02
         return $this->{$opFunction}();
     }
 
-    protected function next()
+    protected function getOffset(int $addr)
     {
-        return $this->state[$this->ip++];
+        return $this->state[$addr] ?? 0;
     }
 
-    protected function readNext(): int
+    protected function next()
     {
-        return intval($this->state[$this->next()]);
+        return $this->getOffset($this->ip++);
+    }
+
+    protected function nextValue(): int
+    {
+        return intval($this->getOffset($this->next()));
+    }
+
+    protected function nextAddress(): int
+    {
+        return intval($this->next());
     }
 
     protected function write($addr, $value)

@@ -22,7 +22,7 @@ class Dec05 extends Dec02
     protected function process03()
     {
         $input = array_shift($this->inputs);
-        $writeAddr = $this->next();
+        $writeAddr = $this->nextAddress();
         $this->write($writeAddr, $input);
         echo_dbg(sprintf("  INP #%s -> @%s\n", $input, $writeAddr));
         return true;
@@ -30,7 +30,7 @@ class Dec05 extends Dec02
 
     protected function process04()
     {
-        $output = $this->readNext();
+        $output = $this->nextValue();
         $this->outputs[] = $output;
         echo_dbg(sprintf("  OUT #%s\n", $output));
         return $output;
@@ -38,8 +38,8 @@ class Dec05 extends Dec02
 
     protected function process05()
     {
-        $a = $this->readNext();
-        $jmpDest = $this->readNext();
+        $a = $this->nextValue();
+        $jmpDest = $this->nextValue();
         if ($a !== 0) {
             echo_dbg(sprintf("--------> %s\n", $jmpDest));
             $this->ip = $jmpDest;
@@ -50,8 +50,8 @@ class Dec05 extends Dec02
 
     protected function process06()
     {
-        $a = $this->readNext();
-        $jmpDest = $this->readNext();
+        $a = $this->nextValue();
+        $jmpDest = $this->nextValue();
         if ($a === 0) {
             echo_dbg(sprintf("--------> %s\n", $jmpDest));
             $this->ip = $jmpDest;
@@ -62,9 +62,9 @@ class Dec05 extends Dec02
 
     protected function process07()
     {
-        $a = $this->readNext();
-        $b = $this->readNext();
-        $outAddr = $this->next();
+        $a = $this->nextValue();
+        $b = $this->nextValue();
+        $outAddr = $this->nextAddress();
         echo_dbg(sprintf("  LES #%s #%s -> %s\n", $a, $b, $outAddr));
         $this->write($outAddr, $a < $b ? 1 : 0);
         return true;
@@ -72,9 +72,9 @@ class Dec05 extends Dec02
 
     protected function process08()
     {
-        $a = $this->readNext();
-        $b = $this->readNext();
-        $outAddr = $this->next();
+        $a = $this->nextValue();
+        $b = $this->nextValue();
+        $outAddr = $this->nextAddress();
         echo_dbg(sprintf("  EQU #%s #%s -> %s\n", $a, $b, $outAddr));
         $this->write($outAddr, $a == $b ? 1 : 0);
         return true;
@@ -91,12 +91,12 @@ class Dec05 extends Dec02
         return $this->{$opFunction}();
     }
 
-    protected function readNext(): int
+    protected function nextValue(): int
     {
         if (array_pop($this->modes) === '1') {
             return intval($this->next());
         }
-        return intval($this->state[$this->next()]);
+        return intval($this->getOffset($this->next()));
     }
 
     public function getOutputs()
