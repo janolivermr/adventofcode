@@ -2,7 +2,7 @@
 echo "Enter your session value to download the input files!"
 read -p 'Session Value: ' session
 
-for i in {1..9}
+for i in {1..10}
 do
 	filename=$(printf "Dec%02d.txt" $i)
 	if [ ! -f "$filename" ]
