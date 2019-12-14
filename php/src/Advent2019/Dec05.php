@@ -21,7 +21,7 @@ class Dec05 extends Dec02
 
     protected function process03()
     {
-        $input = array_shift($this->inputs);
+        $input = $this->getInput();
         $writeAddr = $this->nextAddress();
         $this->write($writeAddr, $input);
         echo_dbg(sprintf("  INP #%s -> @%s\n", $input, $writeAddr));
@@ -102,5 +102,10 @@ class Dec05 extends Dec02
     public function getOutputs()
     {
         return $this->outputs;
+    }
+
+    protected function getInput()
+    {
+        return array_shift($this->inputs);
     }
 }
