@@ -9,6 +9,7 @@ import (
 	"github.com/janolivermr/adventofcode/golang/year2023/day5"
 	"github.com/janolivermr/adventofcode/golang/year2023/day6"
 	"github.com/janolivermr/adventofcode/golang/year2023/day7"
+	"github.com/janolivermr/adventofcode/golang/year2023/day8"
 	"log"
 	"os"
 	"path/filepath"
@@ -38,6 +39,9 @@ func TwentyTwentyThree() {
 	fmt.Println(" ")
 	fmt.Printf("Day 7, Part One: %v\n", day7.One(getFileContents("07")))
 	fmt.Printf("Day 7, Part Two: %v\n", day7.Two(getFileContents("07")))
+	fmt.Println(" ")
+	fmt.Printf("Day 8, Part One: %v\n", day8.One(getFileContents("08")))
+	fmt.Printf("Day 8, Part Two: %v\n", day8.Two(getFileContents("08")))
 	fmt.Println("===================")
 }
 
