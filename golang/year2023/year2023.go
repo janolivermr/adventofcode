@@ -3,6 +3,7 @@ package year2023
 import (
 	"fmt"
 	"github.com/janolivermr/adventofcode/golang/year2023/day1"
+	"github.com/janolivermr/adventofcode/golang/year2023/day10"
 	"github.com/janolivermr/adventofcode/golang/year2023/day2"
 	"github.com/janolivermr/adventofcode/golang/year2023/day3"
 	"github.com/janolivermr/adventofcode/golang/year2023/day4"
@@ -46,6 +47,9 @@ func TwentyTwentyThree() {
 	fmt.Println(" ")
 	fmt.Printf("Day 9, Part One: %v\n", day9.One(getFileContents("09")))
 	fmt.Printf("Day 9, Part Two: %v\n", day9.Two(getFileContents("09")))
+	fmt.Println(" ")
+	fmt.Printf("Day 10, Part One: %v\n", day10.One(getFileContents("10")))
+	fmt.Printf("Day 10, Part Two: %v\n", day10.Two(getFileContents("10")))
 	fmt.Println("===================")
 }
 
